@@ -52,35 +52,35 @@ class UserResource extends Resource
                     ->columns(3)
                     ->description('Prevent abuse by limiting the number of requests per period')
                     ->schema([
-                        Forms\Components\Select::make('country_id')
-                            ->relationship(name: 'country', titleAttribute: 'name')
-                            ->searchable()
-                            ->live()
+                        // Forms\Components\Select::make('country_id')
+                        //     ->relationship(name: 'country', titleAttribute: 'name')
+                        //     ->searchable()
+                        //     ->live()
 
-                            ->afterStateUpdated(function (Set $set) {
+                        //     ->afterStateUpdated(function (Set $set) {
                                 
-                                $set('state_id', null);
-                                $set('city_id', null);
-                            })
-                            ->required(),
+                        //         $set('state_id', null);
+                        //         $set('city_id', null);
+                        //     })
+                        //     ->required(),
 
-                        Forms\Components\Select::make('state_id')
-                            ->options(fn(Get $get): Collection => State::query()
-                                ->where('country_id', $get('country_id'))
-                                ->pluck('name', 'id'))
-                            ->searchable()
-                            ->preload()
-                            ->live()
-                            ->required(),
+                        // Forms\Components\Select::make('state_id')
+                        //     ->options(fn(Get $get): Collection => State::query()
+                        //         ->where('country_id', $get('country_id'))
+                        //         ->pluck('name', 'id'))
+                        //     ->searchable()
+                        //     ->preload()
+                        //     ->live()
+                        //     ->required(),
 
-                        Forms\Components\Select::make('city_id')
-                            ->options(fn(Get $get): Collection => City::query()
-                                ->where('state_id', $get('state_id'))
-                                ->pluck('name', 'id'))
-                            ->searchable()
-                            ->preload()
-                            ->live()
-                            ->required(),
+                        // Forms\Components\Select::make('city_id')
+                        //     ->options(fn(Get $get): Collection => City::query()
+                        //         ->where('state_id', $get('state_id'))
+                        //         ->pluck('name', 'id'))
+                        //     ->searchable()
+                        //     ->preload()
+                        //     ->live()
+                        //     ->required(),
                     ])
 
             ]);

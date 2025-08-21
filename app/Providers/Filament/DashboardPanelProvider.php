@@ -51,8 +51,17 @@ class DashboardPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+
+                ->plugins([
+                    \ChrisReedIO\Socialment\SocialmentPlugin::make()
+                ->registerProvider('microsoft', 'fab-microsoft', 'Microsoft'),
+
+                ])
+
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
+        
     }
 }

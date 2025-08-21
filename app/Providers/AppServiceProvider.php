@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use App\Interfaces\FolderRepositoryInterface;
+use App\Repositories\FolderRepository;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Event;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +24,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Asegura que Laravel siempre use la APP_URL para generar URLs absolutas
+        URL::forceRootUrl(config('app.url'));
+
+        // Fuerza el esquema HTTPS si no estamos en entorno local
+        if (config('app.env') !== 'local') {
+            URL::forceScheme('https');
+        }
+
+        // Configuración de Socialite para Microsoft
+        Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
+            $event->extendSocialite('microsoft', \SocialiteProviders\Microsoft\Provider::class);
+        });
     }
 }
