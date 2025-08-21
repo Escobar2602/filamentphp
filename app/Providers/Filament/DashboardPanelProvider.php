@@ -27,8 +27,10 @@ class DashboardPanelProvider extends PanelProvider
             ->id('dashboard')
             ->path('dashboard')
             ->login()
+            ->darkMode(false)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
+                // 'secondary' => Color::Green,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -52,16 +54,23 @@ class DashboardPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
 
-                ->plugins([
-                    \ChrisReedIO\Socialment\SocialmentPlugin::make()
-                ->registerProvider('microsoft', 'fab-microsoft', 'Microsoft'),
+            ->plugins([
+                \ChrisReedIO\Socialment\SocialmentPlugin::make()
+                    ->registerProvider('microsoft', 'fab-microsoft', 'Microsoft'),
 
-                ])
+            ])
+            ->middleware([
+                \App\Http\Middleware\RedirectAfterSocialLogin::class,
+            ])
+
 
             ->authMiddleware([
                 Authenticate::class,
             ]);
-
-        
     }
+
+    // public function loginRedirect(): string
+    // {
+    //     return '/dashboard'; // Cambia esto si tu ruta de dashboard es diferente
+    // }
 }
