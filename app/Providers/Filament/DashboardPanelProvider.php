@@ -30,7 +30,7 @@ class DashboardPanelProvider extends PanelProvider
             ->path('dashboard')
             ->login()
             ->brandLogo(asset('images2/LOGO.png'))
-            ->brandLogoHeight('6rem')
+            ->brandLogoHeight('4rem')
             ->darkMode(condition: false)
             ->colors([
                 'primary' => Color::Blue,

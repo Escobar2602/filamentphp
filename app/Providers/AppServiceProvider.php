@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Event;
+use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+       LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+            $switch
+                ->locales(['es','en','fr']); 
+        });
+
+
 
         FilamentView::registerRenderHook(
     'panels::auth.login.form.after',
