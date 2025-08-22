@@ -17,6 +17,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
 class DashboardPanelProvider extends PanelProvider
 {
@@ -27,7 +29,9 @@ class DashboardPanelProvider extends PanelProvider
             ->id('dashboard')
             ->path('dashboard')
             ->login()
-            ->darkMode(false)
+            ->brandLogo(asset('images2/LOGO.png'))
+            ->brandLogoHeight('6rem')
+            ->darkMode(condition: false)
             ->colors([
                 'primary' => Color::Blue,
                 // 'secondary' => Color::Green,
@@ -57,9 +61,16 @@ class DashboardPanelProvider extends PanelProvider
             ->plugins([
                 \ChrisReedIO\Socialment\SocialmentPlugin::make()
                     ->registerProvider('microsoft', 'fab-microsoft', 'Microsoft'),
-
             ])
+             ->plugins([
+                FilamentBackgroundsPlugin::make()
+                ->imageProvider(
+                    MyImages::make()
+                        ->directory('images/swisnl/filament-backgrounds/curated-by-swis')
+                ),
+        ])
             ->middleware([
+                
                 \App\Http\Middleware\RedirectAfterSocialLogin::class,
             ])
 

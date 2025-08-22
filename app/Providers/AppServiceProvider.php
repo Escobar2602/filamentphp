@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Interfaces\FolderRepositoryInterface;
 use App\Repositories\FolderRepository;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Event;
@@ -24,6 +26,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        FilamentView::registerRenderHook(
+    'panels::auth.login.form.after',
+    fn (): string => Blade::render("@vite('resources/css/custom-login.css')")
+);
+
+
         // Asegura que Laravel siempre use la APP_URL para generar URLs absolutas
         URL::forceRootUrl(config('app.url'));
 
@@ -36,5 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
             $event->extendSocialite('microsoft', \SocialiteProviders\Microsoft\Provider::class);
         });
+
+        
     }
 }
