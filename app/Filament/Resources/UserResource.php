@@ -29,19 +29,18 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-
-
-
                 Section::make('Personal info')
                     ->columns(3)
                     ->description('Prevent abuse by limiting the number of requests per period')
                     ->schema([
-
                         Forms\Components\TextInput::make('name')
                             ->required(),
+
+                        // 👇 Ocultamos el campo email
                         Forms\Components\TextInput::make('email')
                             ->email()
-                            ->required(),
+                            ->hidden(),
+
                         Forms\Components\DateTimePicker::make('email_verified_at'),
                         Forms\Components\TextInput::make('password')
                             ->password()
@@ -52,37 +51,8 @@ class UserResource extends Resource
                     ->columns(3)
                     ->description('Prevent abuse by limiting the number of requests per period')
                     ->schema([
-                        // Forms\Components\Select::make('country_id')
-                        //     ->relationship(name: 'country', titleAttribute: 'name')
-                        //     ->searchable()
-                        //     ->live()
-
-                        //     ->afterStateUpdated(function (Set $set) {
-                                
-                        //         $set('state_id', null);
-                        //         $set('city_id', null);
-                        //     })
-                        //     ->required(),
-
-                        // Forms\Components\Select::make('state_id')
-                        //     ->options(fn(Get $get): Collection => State::query()
-                        //         ->where('country_id', $get('country_id'))
-                        //         ->pluck('name', 'id'))
-                        //     ->searchable()
-                        //     ->preload()
-                        //     ->live()
-                        //     ->required(),
-
-                        // Forms\Components\Select::make('city_id')
-                        //     ->options(fn(Get $get): Collection => City::query()
-                        //         ->where('state_id', $get('state_id'))
-                        //         ->pluck('name', 'id'))
-                        //     ->searchable()
-                        //     ->preload()
-                        //     ->live()
-                        //     ->required(),
+                        // Aquí estaban los selects comentados
                     ])
-
             ]);
     }
 
@@ -92,8 +62,11 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+
+                // 👇 Ocultamos la columna email en la tabla
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
+                    ->hidden(),
+
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),
