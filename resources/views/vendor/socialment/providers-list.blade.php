@@ -19,7 +19,7 @@
         href="{{ route('socialment.redirect.panel', ['panelId' => $panelId, 'provider' => $providerName]) }}"
         x-data="{ loading: false }"
         @click.prevent="loading = true; window.location.href=$el.href;" 
-        class="relative ring-2 ring-slate-700/50 hover:ring-slate-600/70 transition-all rounded-lg px-12 py-6 flex items-center justify-center text-lg font-bold"
+        class="relative ring-2 ring-slate-700/50 hover:ring-slate-600/70 transition-all rounded-lg px-1 py-4 flex items-center justify-center text-lg font-bold"
     >
         <x-icon name="{{ $provider['icon'] }}" class='w-10 h-10' />
         <span>{{ $provider['label'] }}</span>

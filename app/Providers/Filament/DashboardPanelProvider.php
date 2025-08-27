@@ -53,6 +53,10 @@ class DashboardPanelProvider extends PanelProvider
                                     ->icon('heroicon-o-users')
                                     ->url('/dashboard/users'),
 
+                                    NavigationItem::make('Creacion de publicaciones')
+                                    ->icon('heroicon-o-megaphone')
+                                    ->url('/dashboard/publicaciones'),
+
                             ]),
 
                         // Grupo: Gestión Personal
@@ -84,7 +88,7 @@ class DashboardPanelProvider extends PanelProvider
 
                                 NavigationItem::make('Publicaciones internas')
                                     ->icon('heroicon-o-megaphone')
-                                    ->url('/dashboard/publicaciones-internas'),
+                                    ->url('/dashboard/feed-publicaciones'),
                             ]),
 
                         // Grupo: Desarrollo
@@ -117,6 +121,11 @@ class DashboardPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                // \App\Filament\Pages\Solicitudes::class,
+                    \App\Filament\Pages\FeedPublicaciones::class,
+
+
+
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([

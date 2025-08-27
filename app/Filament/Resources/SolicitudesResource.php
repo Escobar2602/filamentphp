@@ -6,6 +6,7 @@ use App\Filament\Resources\SolicitudesResource\Pages;
 use App\Filament\Resources\SolicitudesResource\RelationManagers;
 use App\Models\Solicitudes;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +24,17 @@ class SolicitudesResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('titulo')
+                    ->label('Título')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\Textarea::make('descripcion')
+                    ->label('Descripción')
+                    ->rows(4),
+
+                    // RichEditor::make('por')
+                    // ->label('prueba')
             ]);
     }
 
@@ -31,7 +42,8 @@ class SolicitudesResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('titulo')->label('Título'),
+                Tables\Columns\TextColumn::make('descripcion')->label('Descripción'),
             ])
             ->filters([
                 //
