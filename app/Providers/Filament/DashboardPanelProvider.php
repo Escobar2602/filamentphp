@@ -39,6 +39,8 @@ class DashboardPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
+            ->databaseNotifications()
+
             ->navigation(function (\Filament\Navigation\NavigationBuilder $builder) {
                 return $builder
                     ->groups([

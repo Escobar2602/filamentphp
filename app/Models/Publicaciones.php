@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +10,7 @@ class Publicaciones extends Model
         'imagen',
         'user_id',
     ];
-
+ 
     // Relaciones
     public function user()
     {
@@ -20,11 +19,11 @@ class Publicaciones extends Model
 
     public function likes()
     {
-        return $this->hasMany(Likes::class);
+        return $this->hasMany(Likes::class);  
     }
 
     public function comentarios()
     {
-        return $this->hasMany(Comentarios::class);
+        return $this->hasMany(Comentarios::class);   
     }
 }
