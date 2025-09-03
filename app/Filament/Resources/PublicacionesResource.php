@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PublicacionesResource\Pages;
+
 use App\Filament\Resources\PublicacionesResource\RelationManagers;
 use App\Models\Publicaciones;
 use Filament\Forms;
@@ -30,10 +31,12 @@ class PublicacionesResource extends Resource
                     ->label('Descripción')
                     ->required(),
 
-                Forms\Components\FileUpload::make('imagen')
-                    ->label('Imagen')
-                    ->image()
-                    ->directory('publicaciones'),
+                Forms\Components\FileUpload::make('media')
+                    ->label('Fotos o videos')
+                    ->multiple()
+                    ->directory('publicaciones')
+                    ->acceptedFileTypes(['image/*', 'video/*'])
+                    ->maxFiles(5),
             ]);
     }
 
@@ -44,7 +47,10 @@ class PublicacionesResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('Usuario'),
                 Tables\Columns\TextColumn::make('descripcion')->limit(50),
-                Tables\Columns\ImageColumn::make('imagen'),
+                Tables\Columns\ImageColumn::make('media.0')
+                    ->label('Archivo')
+                    ->disk('public') // o el disk que uses
+                    ->circular(),
                 Tables\Columns\TextColumn::make('created_at')->label('Fecha'),
             ]);
     }

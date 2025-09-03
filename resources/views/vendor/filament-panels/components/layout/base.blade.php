@@ -58,14 +58,39 @@
         {{ filament()->getTheme()->getHtml() }}
         {{ filament()->getFontHtml() }}
 
-        <style>
+        <!-- <style>
             :root {
                 --font-family: '{!! filament()->getFontFamily() !!}';
                 --sidebar-width: {{ filament()->getSidebarWidth() }};
                 --collapsed-sidebar-width: {{ filament()->getCollapsedSidebarWidth() }};
                 --default-theme-mode: {{ filament()->getDefaultThemeMode()->value }};
             }
-        </style>
+        </style> -->
+
+        <style>
+    :root {
+        --font-family: '{!! filament()->getFontFamily() !!}';
+
+        /* Ajustes de tamaños */
+        --sidebar-width: 14rem; /* Sidebar un poco más pequeño que el default */
+        --collapsed-sidebar-width: 4rem; /* Sidebar colapsado más compacto */
+        --default-theme-mode: {{ filament()->getDefaultThemeMode()->value }};
+    }
+
+    /* Reducir ancho máximo del contenido */
+    .fi-main {
+        max-width: 1000px; /* más pequeño que el default */
+        margin: 0 auto;
+        padding: 1rem;
+    }
+
+    /* Tipografía más compacta */
+    body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+</style>
+
 
         @stack('styles')
 

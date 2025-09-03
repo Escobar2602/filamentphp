@@ -7,8 +7,12 @@ class Publicaciones extends Model
 {
     protected $fillable = [
         'descripcion',
-        'imagen',
+        'media',
         'user_id',
+    ];
+
+    protected $casts = [
+        'media' => 'array',
     ];
  
     // Relaciones

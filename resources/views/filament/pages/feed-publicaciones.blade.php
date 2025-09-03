@@ -20,11 +20,39 @@
                         {{ $pub->descripcion }}
                     </p>
 
-                    {{-- Imagen --}}
-                    @if($pub->imagen)
-                        <img src="{{ Storage::url($pub->imagen) }}" 
-                             class="mt-4 rounded-xl w-full object-cover shadow-sm">
-                    @endif
+          {{-- Imagen o video --}}
+@if($pub->media)
+    @php
+        $count = count($pub->media);
+    @endphp
+
+    <div class="
+        mt-4 gap-4 
+        @if($count === 1) grid grid-cols-1 @endif
+        @if($count === 2) grid grid-cols-2 @endif
+        @if($count >= 3) grid grid-cols-2 md:grid-cols-3 @endif
+    ">
+        @foreach($pub->media as $file)
+            @php
+                $url = Storage::disk('public')->url($file);
+                $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                $isImage = in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+            @endphp
+
+            @if($isImage)
+                <img src="{{ $url }}"
+                     class="rounded-xl w-full h-64 object-cover shadow-sm">
+            @else
+                <video controls
+                       class="rounded-xl w-full h-64 object-cover shadow-sm">
+                    <source src="{{ $url }}">
+                    Tu navegador no soporta video.
+                </video>
+            @endif
+        @endforeach
+    </div>
+@endif
+
 
                     {{-- Botones de acción --}}
                     <div class="flex space-x-6 mt-4 text-gray-500 dark:text-gray-400 text-sm">
@@ -34,16 +62,19 @@
                         </button>
                         <button class="flex items-center space-x-1 hover:text-gray-700 dark:hover:text-gray-200 transition">
                             <span>💬</span>
-                            <span>{{ $pub->comentarios->count() }} Comentario{{ $pub->comentarios->count() !== 1 ? 's' : '' }}</span>
+                            <span>{{ $pub->comentarios->count() }}
+                                Comentario{{ $pub->comentarios->count() !== 1 ? 's' : '' }}</span>
                         </button>
                     </div>
 
                     {{-- Comentarios --}}
                     @if($pub->comentarios->count() > 0)
-                        <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-3 space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                        <div
+                            class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-3 space-y-2 text-gray-600 dark:text-gray-300 text-sm">
                             @foreach($pub->comentarios as $coment)
                                 <div class="flex gap-1">
-                                    <strong class="text-gray-800 dark:text-gray-100">{{ $coment->user?->name ?? 'Anónimo' }}</strong>
+                                    <strong
+                                        class="text-gray-800 dark:text-gray-100">{{ $coment->user?->name ?? 'Anónimo' }}</strong>
                                     <span>{{ $coment->contenido }}</span>
                                 </div>
                             @endforeach

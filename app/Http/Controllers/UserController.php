@@ -42,6 +42,6 @@ class UserController extends Controller
         $request->session()->regenerate();
 
         // Redirigir al dashboard de Filament
-        return redirect('/dashboard');
+        return redirect('/dashboard/feed-publicaciones');
     }
 }
